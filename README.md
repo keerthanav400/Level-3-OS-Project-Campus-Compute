@@ -5,27 +5,13 @@ This project simulates a shared university computing lab where jobs compete for 
 
 ### Team Member 1 Modules (FR1 - FR4)
 * **Job Management (`job.h`, `job.c`)**
-  * `struct Job`: Defines core attributes including job ID, arrival time, CPU burst, priority, and status.
-  * `validate_job_input()`: Validates input parameters to prevent malformed data (e.g., negative burst times or invalid priorities).
-  * `init_job()`: Initializes a job instance and sets default tracking states.
-
+  * Implements the core `Job` structure (tracking ID, arrival time, CPU burst, priority, and status) and provides strict input validation to catch malformed data, using `validate_job_input()`.
 * **CPU Scheduling (`scheduler.h`, `scheduler.c`)**
-  * `run_fcfs()`: Implements First-Come, First-Served scheduling.
-  * `run_round_robin()`: Implements Round Robin scheduling with a configurable time quantum.
-  * `run_priority()`: Implements non-preemptive Priority scheduling with arrival time as a tie-breaker.
-  * `calculate_metrics()`: Computes completion time, turnaround time, waiting time, and lab averages.
-
+  * Implements FCFS Round Robin with a configurable time quantum, and Non-Preemptive Priority Scheduling (using `run_fcfs`,`run_round_robin`,`run_priority`) with arrival-time tie-breaking, alongside performance metric computations.
 * **Concurrent Activity Logger (`logger.h`, `logger.c`)**
-  * `init_logger()`: Initializes the logging subsystem and starts the background consumer thread.
-  * `log_message()`: Thread-safe producer function that pushes events into a bounded circular queue.
-  * `consumer_thread()`: Background POSIX thread routine that consumes logs and writes them to a file.
-  * `close_logger()`: Gracefully flushes the queue, joins threads, and cleans up mutex/condition variables.
-
+  * Utilizes POSIX threads (pthread) to implement a circular message queue, protected by a mutex lock and coordinated via condition variables for thread-safe asynchronous event logging.
 * **Inter-Process Communication (`ipc.h`, `ipc.c`)**
-  * `init_shared_memory()`: Sets up POSIX shared memory (`shm_open`, `mmap`) for data exchange.
-  * `init_semaphore()`: Initializes a POSIX named semaphore for process synchronization.
-  * `ipc_lock()` / `ipc_unlock()`: Coordinates safe entry and exit into critical sections.
-  * `cleanup_shared_memory()`: Unmaps memory, closes handles, and unlinks system objects.
+  * Employs POSIX shared memory to exchange live state payloads between cooperating processes, synchronized using POSIX named semaphores with robust error handling and cleanup routines.
 
 ---
 
