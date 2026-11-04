@@ -150,10 +150,10 @@ void start_cli(void) {
                 break;
             }
             case 7: {
-                printf("\n--- FR7: Resource Limits & Final Cleanup Test ---\n");
-                demonstrate_resource_limits();
-                cleanup_resources_demo();
-                log_message(LOG_SUCCESS, "Tested resource limits and system cleanup.");
+                printf("\n--- FR7: Resource Limits & Cleanup Verification ---\n");
+                limits_demo();     
+                cleanup_verify();   // Verifies IPC and zombie processes are cleaned up
+                log_message(LOG_SUCCESS, "Tested resource limits and verified system cleanup.");
                 break;
             }
             case 8: {
