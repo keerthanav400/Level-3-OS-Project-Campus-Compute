@@ -36,7 +36,7 @@ static void worker_body(int id, int fail_mode) {
     _exit(0);
 }
 
-int worker_demo(int mode) {
+int worker_demo_normal(int mode) {
     pid_t pids[NW];
     int expected_fail = (mode != 0);
     printf("=== Worker processes (%s) ===\n",
